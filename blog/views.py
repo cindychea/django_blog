@@ -1,7 +1,7 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from datetime import date
-from blog.models import Article
+from blog.models import Article, Topic
 
 def root(request):
     return HttpResponseRedirect('home')
