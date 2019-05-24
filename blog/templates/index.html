@@ -7,41 +7,14 @@
     <title>Home</title>
 </head>
 <body>
-    <h1>Welcome to my page!</h1>
+    <h1>Articles</h1>
     <h4>Today's date is: {{ current_date }}</h4>
     <section>
-        <h2>Some Web App Info</h2>
-        <p>
-            <ul>
-                <b>What is a client?</b>
-                <li>A computer hardware device or software that accesses a information and applications from a server</li>
-                <li>For example, a desktop computer or a mobile device</li>
-            </ul>
-            <ul>
-                <b>What is a server?</b>
-                <li>A computer that provides data to other computers</li>
-                <li>For example,  a web server, mail server, or file server</li>
-            </ul>
-            <ul>
-                <b>What is an HTTP request?</b>
-                <li>An HTTP request consists of a URL, request method, a header, and sometimes a body</li>
-                <li>Basically it outlines what the client wants and what action they want to take</li>
-                <li>Common reuqest methods include GET, POST, PUT/PATCH, and DELETE</li>
-                <li>These request methods allow you to fetch, create, update, and delete data</li>
-            </ul>
-            <ul>
-                <b>What is an HTTP response?</b>
-                <li>An HTTP response consists of a status code, a header, and a body of data</li>
-                <li>Basically it is the outcome of the action taken by the server once a request is received from a client</li>
-                <li>There are various response codes that can provide information about the request, redirect, or provide an error message</li>
-                <li>Learn about HTTP status codes <a href='{{ status_code_link }}'>here</a>.</li>
-            </ul>
-            <ul>
-                <b>What is DJANGO and why do we use it?</b>
-                <li>DJANGO is an open source web application framework in Python</li>
-                <li>DJANGO allows users to build secure and maintainable websites without having to rewrite all of the code from scratch</li>
-            </ul>
-        </p>
+        {% for article in articles %}
+        <h3>{{ article.title }}</h3>
+        <h5>Published by {{ article.author }} on {{ article.published_date }}</h5>
+        <p>{{ article.body }}</p>>
+        {% endfor %}
     </section>
 </body>
 </html>
