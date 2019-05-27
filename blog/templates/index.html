@@ -1,26 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Home</title>
-</head>
-<body>
-    <h1>Articles</h1>
-    <h4>Today's date is: {{ current_date }}</h4>
-    <section>
+{% extends 'base.html' %}
+{% block content %}
+
         {% for article in articles %}
-            <h3>{{ article.title }}</h3>
-            <h5>Published by {{ article.author }} on {{ article.published_date }}</h5>
-            <p>{{ article.body }}</p>>
-            <h6>
+            <h3><a class="article_title" href="{% url 'article_page' id=article.id %}">{{ article.title }}</a></h3>
+            <h5 class="publish">Published by {{ article.author }} on {{ article.published_date }}</h5>
+            <p class="body">{{ article.body }}</p>>
+            <h6 class="topic">
                 Topic: 
                     {% for topic in article.topic.all %}
                         {{ topic.name }} | 
                     {% endfor %}        
             </h6>
         {% endfor %}
-    </section>
-</body>
-</html>
+
+{% endblock %}

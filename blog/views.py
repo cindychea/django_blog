@@ -9,8 +9,17 @@ def root(request):
 def home_page(request):
     today = date.today()
     context = {
-        'current_date': today,
+        'title': 'DJANGO Blog',
         'articles': Article.objects.filter(draft=False).order_by('-published_date')
     }
     response = render(request, 'index.html', context)
+    return HttpResponse(response)
+
+def article_page(request, id):
+    article = Article.objects.get(pk=id)
+    context = {
+        'title': 'DJANGO Article',
+        'article': article
+    }
+    response = render(request, 'article_page.html', context)
     return HttpResponse(response)
