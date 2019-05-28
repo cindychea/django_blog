@@ -13,6 +13,10 @@ html {
     padding: 20px;
     text-align: center;
 }
+.title a {
+    text-decoration: none;
+    color: #57d3b4;
+}
 main {
     background-color: #ebc6c3;
     width: 80%;
@@ -36,13 +40,15 @@ main {
     padding: 5px 0px;
 }
 .body {
-    display:inline-block;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 1em;
     color: black;
     padding: 5px 0px;
     line-height: 1.25em;
     text-align: justify;
+}
+article {
+    margin: 25px 0;
 }
 .topic {
     display:inline-block;
@@ -52,13 +58,33 @@ main {
     padding: 5px 0px;
     font-weight: bold;
 }
+.form-title, .form-input {
+    display: block;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    padding: 10px 0px;
+}
+.submit {
+    display: block;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    margin: 10px 0px;
+}
+.comment-title {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 1em;
+    margin: 40px 0 10px;
+}
+.comments {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 1em;
+    line-height: 1.5em;
+}
 .back {
     display:block;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 1em;
     color: navy;
     text-decoration: none;
-    padding: 10px 0px;
+    padding: 40px 0px;
 }
 footer {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;

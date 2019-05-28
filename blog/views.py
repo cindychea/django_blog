@@ -1,7 +1,8 @@
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from datetime import date
-from blog.models import Article, Topic
+from django.views.decorators.http import require_http_methods
+from blog.models import Article, Topic, Comment
 
 def root(request):
     return HttpResponseRedirect('home')
@@ -23,3 +24,12 @@ def article_page(request, id):
     }
     response = render(request, 'article_page.html', context)
     return HttpResponse(response)
+
+@require_http_methods(['POST'])
+def create_comment(request):
+    user_name = request.POST['name']
+    user_message = request.POST['message']
+    article_id = request.POST['article']
+    article = Article.objects.get(id=article_id)
+    Comment.objects.create(name=user_name, article=article, message=user_message)
+    return redirect('article_page', id=article_id)
