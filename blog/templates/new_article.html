@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Post an Article</h1>
+        {% if error_msg %}
+        {{ error_msg }}
+        {% endif %}
+    <form method="post" action="{% url 'post_article' %}">
+        {% csrf_token %}
+        {{ article_form.as_p }}
+    <input type='submit'>
+    </form>
+
+{% endblock %}

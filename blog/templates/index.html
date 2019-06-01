@@ -1,16 +1,18 @@
 {% extends 'base.html' %}
 {% block content %}
 
-        {% for article in articles %}
-            <h3><a class="article_title" href="{% url 'article_page' id=article.id %}">{{ article.title }}</a></h3>
-            <h5 class="publish">Published by {{ article.author }} on {{ article.published_date }}</h5>
-            <p class="body">{{ article.body }}</p>>
-            <h6 class="topic">
-                Topic: 
-                    {% for topic in article.topic.all %}
-                        {{ topic.name }} | 
-                    {% endfor %}        
-            </h6>
-        {% endfor %}
+    <a href="{% url 'create_article' %}">Post New Article</a>
+
+    {% for article in articles %}
+        <h3><a class="article_title" href="{% url 'article_page' id=article.id %}">{{ article.title }}</a></h3>
+        <h5 class="publish">Published by {{ article.author }} on {{ article.published_date }}</h5>
+        <p class="body">{{ article.body }}</p>>
+        <h6 class="topic">
+            Topic: 
+                {% for topic in article.topic.all %}
+                    {{ topic.name }} | 
+                {% endfor %}        
+        </h6>
+    {% endfor %}
 
 {% endblock %}
