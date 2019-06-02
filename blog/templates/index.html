@@ -1,8 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
 
-    <a href="{% url 'create_article' %}">Post New Article</a>
-
     {% for article in articles %}
         <h3><a class="article_title" href="{% url 'article_page' id=article.id %}">{{ article.title }}</a></h3>
         <h5 class="publish">Published by {{ article.author }} on {{ article.published_date }}</h5>
