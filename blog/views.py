@@ -45,11 +45,14 @@ def create_article(request):
     return HttpResponse(render(request, 'new_article.html', {'article_form': article_form}))
 
 def post_article(request):
-    new_article = ArticleForm(request.POST)
-    if new_article.is_valid():
-        new_article.save()
-        new_article.id = id
-        return HttpResponseRedirect('/home')
+    if request.method == 'POST': 
+        new_article = ArticleForm(request.POST)
+        if new_article.is_valid():
+            new = new_article.save(commit=False)
+            new.author = request.user
+            new.user = request.user
+            new_article.save()
+            return redirect('article_page', id=new.id)
     else:
         article_form = ArticleForm()
         context = {'article_form': article_form, 'error_msg': 'You have submitted an invalid form, please try again!'}
