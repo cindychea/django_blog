@@ -22,10 +22,10 @@ urlpatterns = [
     path('home/', home_page, name='home'),
     path('admin/', admin.site.urls),
     path('article/<int:id>', article_page, name='article_page'),
-    path('comments/new', create_comment, name='create_comment'),
     path('article/create', create_article, name='create_article'),
     path('article/post', post_article, name='post_article'),
     path('login/', login_page, name='login_page'),
     path('logout/', logout_page, name='logout_page'),
-    path('signup/', signup, name='signup')
+    path('signup/', signup, name='signup'),
+    path('article/<int:id>/comment', post_comment, name='post_comment')
 ]

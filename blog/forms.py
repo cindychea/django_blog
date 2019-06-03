@@ -1,4 +1,4 @@
-from .models import Article
+from .models import Article, Comment
 from django.forms import ModelForm
 from django import forms
 from django.forms import CharField, PasswordInput
@@ -39,3 +39,8 @@ class LoginForm(forms.Form):
     username = CharField(label='Username', max_length=64)
     password = CharField(widget=PasswordInput())
     
+class CommentForm(ModelForm):
+
+    class Meta:
+        model = Comment
+        fields = ['name', 'message']

@@ -7,7 +7,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from blog.models import Article, Topic, Comment
-from blog.forms import ArticleForm, LoginForm
+from blog.forms import ArticleForm, LoginForm, CommentForm
 
 def root(request):
     return HttpResponseRedirect('home')
@@ -23,23 +23,37 @@ def home_page(request):
 
 def article_page(request, id):
     article = Article.objects.get(pk=id)
+    comment_form = CommentForm()
     context = {
         'title': 'DJANGO Article',
-        'article': article
+        'article': article,
+        'comment_form': comment_form
     }
     response = render(request, 'article_page.html', context)
     return HttpResponse(response)
 
-@require_http_methods(['POST'])
-def create_comment(request):
-    user_name = request.POST['name']
-    user_message = request.POST['message']
-    article_id = request.POST['article']
-    article = Article.objects.get(id=article_id)
-    Comment.objects.create(name=user_name, article=article, message=user_message)
-    return redirect('article_page', id=article_id)
+# @require_http_methods(['POST'])
+# def create_comment(request):
+#     user_name = request.POST['name']
+#     user_message = request.POST['message']
+#     article_id = request.POST['article']
+#     article = Article.objects.get(id=article_id)
+#     Comment.objects.create(name=user_name, article=article, message=user_message)
+#     return redirect('article_page', id=article_id)
 
-# Unable to refactor comment form using ModelForm
+def post_comment(request, id):
+    article = Article.objects.get(id=id)
+    comment_form = CommentForm(request.POST)
+    if comment_form.is_valid():
+        comment = comment_form.save(commit=False)
+        comment.article = article
+        comment.save()
+        return redirect('article_page', id=id)
+    else: 
+        comment_form = CommentForm()
+        context = {'comment_form': comment_form, 'article': article, id: article.id, 'error': 'You have submitted an invalid form, please try again!'}
+        return render(request, 'article_page.html', context)
+
 
 @login_required
 def create_article(request):

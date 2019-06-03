@@ -5,17 +5,19 @@
         <h3 class="publish">Written by {{ article.author }} on {{ article.published_date }}</h3>
         <p class="body">{{ article.body }}</p>
     </article>
-    <form action="{% url 'create_comment' %}" method="post">
+
+    {% if error %}
+    {{error}}
+    {% endif %}
+
+    <form action="{% url 'post_comment' id=article.id %}" method='POST'>
         {% csrf_token %}
-        <input type="hidden" name="article" value="{{  article.pk }}">
-        <label class="form-title" for="name">Name</label>
-        <input class="form-input" id="name" type="text" name="name">
-        <label class="form-title" for="message">Comment</label>
-        <textarea class="form-input" id="message" name="message" cols="30" rows="5"></textarea>
+        {{ comment_form.as_p }}
         <button class="submit" type="submit">
             <span>Post Comment</span>
         </button>
     </form>
+
     <h5 class="comment-title">Comments:</h5>
     <ul class="comments">
         {% for comment in article.comments.all %}
