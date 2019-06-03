@@ -22,11 +22,14 @@ nav {
     max-width: 750px;
     margin: 10px auto;
     display: flex;
+    justify-content: space-between;
 }
 nav a {
-    padding: 
     text-decoration: none;
-    text-align: justify;
+    padding: 10px;
+    background-color: #57d3b4;
+    border-radius: 5px;
+    color: darkslategrey;
 }
 main {
     background-color: #ebc6c3;
