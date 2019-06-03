@@ -25,7 +25,7 @@ urlpatterns = [
     path('comments/new', create_comment, name='create_comment'),
     path('article/create', create_article, name='create_article'),
     path('article/post', post_article, name='post_article'),
-    path('login', login_page, name='login_page'),
-    path('logout', logout_page, name='logout_page'),
+    path('login/', login_page, name='login_page'),
+    path('logout/', logout_page, name='logout_page'),
     path('signup/', signup, name='signup')
 ]

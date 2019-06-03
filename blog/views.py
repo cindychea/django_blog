@@ -5,6 +5,7 @@ from django.forms import ModelForm
 from django.views.decorators.http import require_http_methods
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
 from blog.models import Article, Topic, Comment
 from blog.forms import ArticleForm, LoginForm
 
@@ -40,10 +41,12 @@ def create_comment(request):
 
 # Unable to refactor comment form using ModelForm
 
+@login_required
 def create_article(request):
     article_form = ArticleForm()
     return HttpResponse(render(request, 'new_article.html', {'article_form': article_form}))
 
+@login_required
 def post_article(request):
     if request.method == 'POST': 
         new_article = ArticleForm(request.POST)
@@ -60,6 +63,8 @@ def post_article(request):
         return HttpResponse(response)
 
 def login_page(request):
+    if request.user.is_authenticated:
+        return HttpResponseRedirect('/pictures')
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
@@ -80,6 +85,8 @@ def logout_page(request):
     return HttpResponseRedirect('/home')
 
 def signup(request):
+    if request.user.is_authenticated:
+        return HttpResponseRedirect('/pictures')
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
