@@ -10,6 +10,10 @@
     {{error}}
     {% endif %}
 
+    {% if article.user == request.user %}
+    <a href="{% url 'edit_article' id=article.id %}">Edit Article</a>
+    {% endif %}
+
     <form action="{% url 'post_comment' id=article.id %}" method='POST'>
         {% csrf_token %}
         {{ comment_form.as_p }}

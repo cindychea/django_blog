@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
 
+    {% if error %}
+        {{error}}
+    {% endif %}
+
     {% for article in articles %}
         <h3><a class="article_title" href="{% url 'article_page' id=article.id %}">{{ article.title }}</a></h3>
         <h5 class="publish">Published by {{ article.author }} on {{ article.published_date }}</h5>
@@ -12,5 +16,4 @@
                 {% endfor %}        
         </h6>
     {% endfor %}
-
 {% endblock %}

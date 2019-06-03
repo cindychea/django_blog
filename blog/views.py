@@ -1,5 +1,5 @@
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from datetime import date
 from django.forms import ModelForm
 from django.views.decorators.http import require_http_methods
@@ -32,6 +32,18 @@ def article_page(request, id):
     response = render(request, 'article_page.html', context)
     return HttpResponse(response)
 
+@login_required
+def edit_article(request, id):
+    article = get_object_or_404(Article, id=id, user=request.user.pk)
+    if request.method == 'POST':
+        article_form = ArticleForm(request.POST, instance=article)
+        if article_form.is_valid():
+            article_form.save()
+            return redirect('article_page', id=article.id)
+    else:
+        article_form = ArticleForm(instance=article)
+        return render(request, 'edit_article.html', {'article_form': article_form, 'article': article})
+
 # @require_http_methods(['POST'])
 # def create_comment(request):
 #     user_name = request.POST['name']
@@ -54,27 +66,30 @@ def post_comment(request, id):
         context = {'comment_form': comment_form, 'article': article, id: article.id, 'error': 'You have submitted an invalid form, please try again!'}
         return render(request, 'article_page.html', context)
 
-
-@login_required
 def create_article(request):
-    article_form = ArticleForm()
-    return HttpResponse(render(request, 'new_article.html', {'article_form': article_form}))
+    if request.user.is_authenticated:
+        article_form = ArticleForm()
+        return HttpResponse(render(request, 'new_article.html', {'article_form': article_form}))
+    else:
+        context = {'error': 'You must be logged in to post an article.'}
+        return render(request, 'index.html', context)
 
 @login_required
 def post_article(request):
-    if request.method == 'POST': 
-        new_article = ArticleForm(request.POST)
-        if new_article.is_valid():
-            new = new_article.save(commit=False)
-            new.author = request.user
-            new.user = request.user
-            new_article.save()
-            return redirect('article_page', id=new.id)
-    else:
-        article_form = ArticleForm()
-        context = {'article_form': article_form, 'error_msg': 'You have submitted an invalid form, please try again!'}
-        response = render(request, 'new_article.html', context)
-        return HttpResponse(response)
+        if request.method == 'POST': 
+            new_article = ArticleForm(request.POST)
+            if new_article.is_valid():
+                new = new_article.save(commit=False)
+                new.author = request.user
+                new.user = request.user
+                new_article.save()
+                return redirect('article_page', id=new.id)
+        else:
+            article_form = ArticleForm()
+            context = {'article_form': article_form, 'error_msg': 'You have submitted an invalid form, please try again!'}
+            response = render(request, 'new_article.html', context)
+            return HttpResponse(response)
+
 
 def login_page(request):
     if request.user.is_authenticated:

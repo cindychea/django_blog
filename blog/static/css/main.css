@@ -17,6 +17,17 @@ html {
     text-decoration: none;
     color: #57d3b4;
 }
+nav {
+    font-family: Arial, Helvetica, sans-serif;
+    max-width: 750px;
+    margin: 10px auto;
+    display: flex;
+}
+nav a {
+    padding: 
+    text-decoration: none;
+    text-align: justify;
+}
 main {
     background-color: #ebc6c3;
     width: 80%;

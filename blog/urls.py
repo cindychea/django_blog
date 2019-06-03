@@ -22,6 +22,7 @@ urlpatterns = [
     path('home/', home_page, name='home'),
     path('admin/', admin.site.urls),
     path('article/<int:id>', article_page, name='article_page'),
+    path('article/<int:id>/edit', edit_article, name='edit_article'),
     path('article/create', create_article, name='create_article'),
     path('article/post', post_article, name='post_article'),
     path('login/', login_page, name='login_page'),
